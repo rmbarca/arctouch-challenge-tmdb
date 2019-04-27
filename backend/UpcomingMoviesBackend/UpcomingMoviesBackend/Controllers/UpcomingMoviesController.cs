@@ -4,6 +4,7 @@ using GraphQL;
 using GraphQL.Types;
 using UpcomingMoviesBackend.Data.Remote;
 using UpcomingMoviesBackend.Data.Query;
+using Microsoft.AspNetCore.Cors;
 
 namespace UpcomingMoviesBackend.Controllers
 {
@@ -13,6 +14,7 @@ namespace UpcomingMoviesBackend.Controllers
     {
         // POST api/upcomingmovies/5
         // {"query":"{movie{overview,title,releaseDate,posterPath,backdropPath,genres{name}}}"}
+        [EnableCors]
         [HttpPost("{id}")]
         public async Task<IActionResult> Post(int id, [FromBody]GraphQLQuery query)
         {
@@ -41,6 +43,7 @@ namespace UpcomingMoviesBackend.Controllers
 
         // POST api/upcomingmovies
         // {"query":"{results(page:14){page,totalPages,totalResults,movies{title,releaseDate,posterPath,backdropPath,genres{name}}}}"}
+        [EnableCors]
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]GraphQLQuery query)
         {

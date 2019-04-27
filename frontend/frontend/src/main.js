@@ -3,7 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import { createProvider } from './vue-apollo';
+import { createProvider } from 'vue-apollo';
 import { ApolloClient } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
@@ -19,7 +19,12 @@ const httpLink = new HttpLink({
 const apolloClient = new ApolloClient({
   link: httpLink,
   cache: new InMemoryCache(),
-  connectToDevTools: true
+  connectToDevTools: true,
+  fetchOptions: {
+    method: "POST",
+    credentials: 'include',
+    mode: 'no-cors',
+  }
 });
 
 Vue.use(VueApollo);
@@ -32,7 +37,6 @@ const apolloProvider = new VueApollo({
 new Vue({
   el: '#app',
   apolloProvider,
-  render: h => h(App),
   router,
   components: { App },
   template: '<App/>'

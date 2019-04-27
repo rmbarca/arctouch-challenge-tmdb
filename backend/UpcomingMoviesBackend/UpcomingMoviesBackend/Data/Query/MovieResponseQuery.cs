@@ -11,7 +11,7 @@ namespace UpcomingMoviesBackend.Data.Query
                 type: typeof(MovieResponseType),
                 name: "results",
                 description: "Results",
-                arguments: new QueryArguments(new QueryArgument<IdGraphType> { Name = "page" }),
+                arguments: new QueryArguments(new QueryArgument<IntGraphType> { Name = "page" }),
                 resolve: async context => {
                     var page = context.GetArgument<int>("page");
                     return await dataSource.GetUpcomingAsync(page);

@@ -14,12 +14,26 @@ namespace UpcomingMoviesBackend
             Configuration = configuration;
         }
 
+        readonly string ApiAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         public IConfiguration Configuration { get; }
         public static Api Api { get; private set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                builder =>
+                {
+                    builder.WithOrigins("http://localhost:8080")
+                                .AllowAnyHeader()
+                                .AllowAnyMethod()
+                                .AllowCredentials();
+                });
+            });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -35,6 +49,7 @@ namespace UpcomingMoviesBackend
                 app.UseHsts();
             }
 
+            app.UseCors(ApiAllowSpecificOrigins);
             app.UseHttpsRedirection();
             app.UseMvc();
 

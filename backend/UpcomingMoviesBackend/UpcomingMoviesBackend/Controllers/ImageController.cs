@@ -5,7 +5,7 @@ using System.IO;
 
 namespace UpcomingMoviesBackend.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class ImageController : Controller
     {
