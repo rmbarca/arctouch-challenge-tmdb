@@ -1,8 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using GraphQL;
+using GraphQL.Types;
+using UpcomingMoviesBackend.Data.Remote;
+using UpcomingMoviesBackend.Data.Query;
 
 namespace UpcomingMoviesBackend.Controllers
 {
@@ -10,36 +11,60 @@ namespace UpcomingMoviesBackend.Controllers
     [ApiController]
     public class UpcomingMoviesController : ControllerBase
     {
-        // GET api/upcomingmovies
-        [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        // POST api/upcomingmovies/5
+        // {"query":"{movie{overview,title,releaseDate,posterPath,backdropPath,genres{name}}}"}
+        [HttpPost("{id}")]
+        public async Task<IActionResult> Post(int id, [FromBody]GraphQLQuery query)
         {
-            return new string[] { "value1", "value2" };
-        }
+            var inputs = query.Variables.ToInputs();
 
-        // GET api/upcomingmovies/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
-        {
-            return "value";
+            var schema = new Schema()
+            {
+                Query = new MovieQuery(id, new MovieRemoteDataSource())
+            };
+
+            var result = await new DocumentExecuter().ExecuteAsync(_ =>
+            {
+                _.Schema = schema;
+                _.Query = query.Query;
+                _.OperationName = query.OperationName;
+                _.Inputs = inputs;
+            }).ConfigureAwait(false);
+
+            if (result.Errors?.Count > 0)
+            {
+                return BadRequest();
+            }
+
+            return Ok(result);
         }
 
         // POST api/upcomingmovies
+        // {"query":"{results(page:14){page,totalPages,totalResults,movies{title,releaseDate,posterPath,backdropPath,genres{name}}}}"}
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> Post([FromBody]GraphQLQuery query)
         {
-        }
+            var inputs = query.Variables.ToInputs();
 
-        // PUT api/upcomingmovies/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
+            var schema = new Schema()
+            {
+                Query = new MovieResponseQuery(new MovieRemoteDataSource())
+            };
 
-        // DELETE api/upcomingmovies/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            var result = await new DocumentExecuter().ExecuteAsync(_ =>
+            {
+                _.Schema = schema;
+                _.Query = query.Query;
+                _.OperationName = query.OperationName;
+                _.Inputs = inputs;
+            }).ConfigureAwait(false);
+
+            if (result.Errors?.Count > 0)
+            {
+                return BadRequest();
+            }
+
+            return Ok(result);
         }
     }
 }
