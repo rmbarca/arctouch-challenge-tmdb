@@ -6,6 +6,9 @@ namespace UpcomingMoviesBackend.Data.Remote
 {
     public class GenreRemoteDataSource
     {
+        /// <summary>
+        /// Gets genres from remote data source
+        /// </summary>
         public async Task<GenreResponse> GetAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             var client = new Client<GenreResponse>();

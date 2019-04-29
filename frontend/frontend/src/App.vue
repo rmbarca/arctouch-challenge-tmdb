@@ -1,67 +1,14 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <search-movie/>
-    <movie-list/>
-
-    <!--<h3>Example 1</h3>
-    <div>
-      Data: {{ example1 }}
-    </div>
-    <button @click="getLanguage">Get Language</button>-->
+    <img src="./assets/logo.svg" width="30%">
+    <router-view/>
     <hr> 
   </div>
 </template>
 
 <script>
-//import axios from 'axios'
-import MovieList from "./components/MovieList.vue";
-import SearchMovie from "./components/SearchMovie.vue";
-
 export default {
-  name: 'App',
-  
-  components: {
-    MovieList,
-    SearchMovie
-  }/*,,
-
-  data() {
-    return {
-      example1: ''
-    }
-  }
-  methods: {
-    async getLanguage () {
-      try {
-        const res = await axios.post(
-          'https://localhost:44388/api/upcomingmovies', {
-          query: `{
-            results(page:1) { 
-              page
-              totalPages
-              totalResults
-              movies { 
-                id
-                title
-                releaseDate
-                posterPath
-                backdropPath
-                genres {
-                  id
-                  name
-                }
-              }
-            }
-          }`
-        })
-        
-        this.example1 = res.data.data.language
-      } catch (e) {
-        console.log('err', e)
-      }
-    }
-  }*/
+  name: 'App'
 }
 </script>
 
@@ -73,5 +20,54 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+.search-container{
+  position:relative;
+    left: 50%;
+    width:30em;
+    margin-left: -15em; /*set to a negative number 1/2 of your width*/
+}
+.container {
+  width:80%;
+  position: relative;
+  display: block;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.container>img{
+  width:100%;
+}
+.text-block {
+  position: absolute;
+  bottom: 0px;
+  right: 20px;
+  left: 20px;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  background-color: black;
+  color: white;
+  opacity: 0.9;
+}
+.container-detail {
+  width:100%;
+  position: relative;
+  display: block;
+  align-items: center;
+}
+.text-block-detail {
+  position: relative;
+  width:100%;
+  padding: 1em;
+  background-color: white;
+  color: black;
+  opacity: 0.9;
+}
+@media only screen and (min-width: 768px) {
+  .container {
+    width:30%;
+  }
+  .container>span{
+    font-size: 4vw;
+  }
 }
 </style>

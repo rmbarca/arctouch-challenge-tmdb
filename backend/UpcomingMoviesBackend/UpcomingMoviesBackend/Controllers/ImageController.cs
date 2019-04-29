@@ -9,7 +9,6 @@ namespace UpcomingMoviesBackend.Controllers
     [ApiController]
     public class ImageController : Controller
     {
-
         // GET api/image/cover.jpg
         [HttpGet("{imagePath}")]
         public async Task<Stream> GetAsync(string imagePath)
@@ -17,6 +16,5 @@ namespace UpcomingMoviesBackend.Controllers
             var remote = new ImageRemoteDataSource();
             return await remote.GetImageAsync(imagePath);
         }
-
     }
 }

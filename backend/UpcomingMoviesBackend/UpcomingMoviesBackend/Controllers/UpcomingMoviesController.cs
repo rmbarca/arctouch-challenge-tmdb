@@ -2,9 +2,10 @@
 using Microsoft.AspNetCore.Mvc;
 using GraphQL;
 using GraphQL.Types;
-using UpcomingMoviesBackend.Data.Remote;
 using UpcomingMoviesBackend.Data.Query;
 using Microsoft.AspNetCore.Cors;
+using UpcomingMoviesBackend.Data.Local;
+using UpcomingMoviesBackend.Data;
 
 namespace UpcomingMoviesBackend.Controllers
 {
@@ -12,37 +13,15 @@ namespace UpcomingMoviesBackend.Controllers
     [ApiController]
     public class UpcomingMoviesController : ControllerBase
     {
-        // POST api/upcomingmovies/5
-        // {"query":"{movie{overview,title,releaseDate,posterPath,backdropPath,genres{name}}}"}
-        [EnableCors]
-        [HttpPost("{id}")]
-        public async Task<IActionResult> Post(int id, [FromBody]GraphQLQuery query)
+        private readonly MovieDatabaseContext _context;
+
+        public UpcomingMoviesController(MovieDatabaseContext context)
         {
-            var inputs = query.Variables.ToInputs();
-
-            var schema = new Schema()
-            {
-                Query = new MovieQuery(id, new MovieRemoteDataSource())
-            };
-
-            var result = await new DocumentExecuter().ExecuteAsync(_ =>
-            {
-                _.Schema = schema;
-                _.Query = query.Query;
-                _.OperationName = query.OperationName;
-                _.Inputs = inputs;
-            }).ConfigureAwait(false);
-
-            if (result.Errors?.Count > 0)
-            {
-                return BadRequest();
-            }
-
-            return Ok(result);
+            _context = context;
         }
 
         // POST api/upcomingmovies
-        // {"query":"{results(page:14){page,totalPages,totalResults,movies{title,releaseDate,posterPath,backdropPath,genres{name}}}}"}
+        // {"query":"{results(page:1, id: 0, search: \"avenger\"){page,totalPages,totalResults,movies{id,title,releaseDate,posterPath,backdropPath,genres{id,name}}}}"}
         [EnableCors]
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]GraphQLQuery query)
@@ -51,7 +30,7 @@ namespace UpcomingMoviesBackend.Controllers
 
             var schema = new Schema()
             {
-                Query = new MovieResponseQuery(new MovieRemoteDataSource())
+                Query = new MovieQuery(new MovieDataSource(_context))
             };
 
             var result = await new DocumentExecuter().ExecuteAsync(_ =>

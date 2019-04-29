@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20190428011245_UpcomingMoviesBackend.Data.Local.MovieDatabaseContext.cs" />
+    <Compile Remove="Migrations\20190428011245_UpcomingMoviesBackend.Data.Local.MovieDatabaseContext.Designer.cs" />
+    <Compile Remove="Migrations\20190428025810_UpcomingMoviesBackend.Data.Local.MovieDatabaseContext-Identities.cs" />
+    <Compile Remove="Migrations\20190428025810_UpcomingMoviesBackend.Data.Local.MovieDatabaseContext-Identities.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
 

@@ -1,5 +1,4 @@
-﻿
-namespace UpcomingMoviesBackend.Data.Model
+﻿namespace UpcomingMoviesBackend.Data.Model
 {
     public class Api
     {

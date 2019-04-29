@@ -4,7 +4,9 @@ namespace UpcomingMoviesBackend.Data.Remote
 {
     public class Client<T>
     {
-
+        /// <summary>
+        /// Creates a request instance for HTTP purposes
+        /// </summary>
         public Request<T> CreateRequest(string path)
         {
             var url = Startup.Api.Url;
@@ -15,6 +17,9 @@ namespace UpcomingMoviesBackend.Data.Remote
             return request;
         }
 
+        /// <summary>
+        /// Creates a request instance for HTTP purposes but returning Stream instead of text
+        /// </summary>
         public Request<T> CreateImageStreamRequest(string path)
         {
             var url = Startup.Api.ImageUrl;

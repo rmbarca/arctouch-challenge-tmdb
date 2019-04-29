@@ -29,11 +29,17 @@ namespace UpcomingMoviesBackend.Data.Remote
             _queryParameters = new List<KeyValuePair<string, string>>();
         }
 
+        /// <summary>
+        /// Adds parameter to request
+        /// </summary>
         public void AddParameter(KeyValuePair<string, string> parameter)
         {
             _queryParameters.Add(parameter);
         }
 
+        /// <summary>
+        /// Performs HTTP GET retrieving text
+        /// </summary>
         public async Task<T> GetAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             using (var client = new HttpClient())
@@ -52,6 +58,9 @@ namespace UpcomingMoviesBackend.Data.Remote
             }
         }
 
+        /// <summary>
+        /// Performs HTTP GET retrieving stream
+        /// </summary>
         public async Task<Stream> GetStreamAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             using (var client = new HttpClient())

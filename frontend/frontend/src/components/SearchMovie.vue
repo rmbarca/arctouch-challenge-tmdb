@@ -1,11 +1,7 @@
 <template>
-  <!--<form @submit="submit">-->
-  <form>
-    <fieldset>
-      <input type="text" placeholder="Search movie" v-model="search_field">
-    </fieldset>
-    <input class="button-primary" type="submit" value="Send">
-  </form>
+  <div class="search-container"> 
+    <input id="search-input2" type="text" :placeholder="hintText" v-model="searchText">
+  </div>
 </template>
 
 <script>
@@ -13,7 +9,8 @@ export default {
   name: "SearchMovie",
   data() {
     return {
-      search_field: ""
+      searchText: "",
+      hintText: "Search for an upcoming movie"
     };
   }
 };

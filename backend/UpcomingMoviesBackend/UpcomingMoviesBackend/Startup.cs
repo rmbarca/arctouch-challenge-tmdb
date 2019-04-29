@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using UpcomingMoviesBackend.Data.Local;
 using UpcomingMoviesBackend.Data.Model;
 
 namespace UpcomingMoviesBackend
@@ -19,6 +21,9 @@ namespace UpcomingMoviesBackend
         public IConfiguration Configuration { get; }
         public static Api Api { get; private set; }
 
+        public static string ConnectionString { get; private set; }
+        
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -33,6 +38,9 @@ namespace UpcomingMoviesBackend
                                 .AllowCredentials();
                 });
             });
+
+            ConnectionString = Configuration["ConnectionString:MoviesDB"];
+            services.AddDbContext<MovieDatabaseContext>(opts => opts.UseSqlServer(ConnectionString));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

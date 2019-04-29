@@ -12,6 +12,7 @@ import VueApollo, { ApolloProvider } from 'vue-apollo';
 
 Vue.config.productionTip = false
 
+Vue.prototype.$appName = 'Upcoming Movies'
 const httpLink = new HttpLink({
   uri: 'https://localhost:44388/api/upcomingmovies'
 });

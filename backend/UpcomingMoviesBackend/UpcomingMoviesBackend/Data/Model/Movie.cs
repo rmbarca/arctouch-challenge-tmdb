@@ -1,16 +1,19 @@
-﻿using Newtonsoft.Json;
+﻿using System.Linq;
+using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace UpcomingMoviesBackend.Data.Model
 {
     public class Movie
     {
 
+        [JsonProperty("id")]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.None)]
+        public int Id { get; set; }
+
         [JsonProperty("vote_count")]
         public int VoteCount { get; set; }
-
-        [JsonProperty("id")]
-        public int Id { get; set; }
 
         [JsonProperty("video")]
         public bool Video { get; set; }
@@ -34,7 +37,14 @@ namespace UpcomingMoviesBackend.Data.Model
         public string OriginalTitle { get; set; }
 
         [JsonIgnore]
-        public IEnumerable<Genre> Genres { get; set; }
+        public ICollection<Genre> Genres {
+            get
+            {
+                return MovieGenres?.Select(mg => mg.Genre).ToList();
+            }
+        }
+        [JsonIgnore]
+        public virtual ICollection<MovieGenre> MovieGenres { get; set; }
 
         [JsonProperty("genre_ids")]
         public IEnumerable<int> GenreIds { get; set; }
