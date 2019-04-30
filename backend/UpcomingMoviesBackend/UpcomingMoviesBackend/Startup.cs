@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using UpcomingMoviesBackend.Data;
 using UpcomingMoviesBackend.Data.Local;
 using UpcomingMoviesBackend.Data.Model;
 
@@ -67,6 +68,9 @@ namespace UpcomingMoviesBackend
                 Key = Configuration["Api:Key"],
                 ImageUrl = Configuration["Api:ImageUrl"]
             };
+
+            var sync = new Sync();
+            _ = sync.Execute();
         }
     }
 }

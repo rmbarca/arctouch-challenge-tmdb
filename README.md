@@ -18,6 +18,10 @@ For creation of database, a migration file was created with the following comman
 
 To create database, run:
 	PM> update-database
+	
+Unit tests are in XUnit Core Project.
+Packages included:
+	PM> Install-Package Moq
 
 # Frontend
 Frontend project is developed using Vue.JS library.

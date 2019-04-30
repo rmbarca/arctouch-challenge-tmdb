@@ -9,7 +9,7 @@ namespace UpcomingMoviesBackend.Controllers
     [ApiController]
     public class ImageController : Controller
     {
-        // GET api/image/cover.jpg
+        // GET image/cover.jpg
         [HttpGet("{imagePath}")]
         public async Task<Stream> GetAsync(string imagePath)
         {

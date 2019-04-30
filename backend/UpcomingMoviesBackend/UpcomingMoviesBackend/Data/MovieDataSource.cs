@@ -10,7 +10,7 @@ namespace UpcomingMoviesBackend.Data
         private IMovieDataSource _localDataSource;
         private Sync _sync;
 
-        public MovieDataSource(MovieDatabaseContext _context)
+        public MovieDataSource(IMovieContext _context)
         {
             _localDataSource = new MovieLocalDataSource(_context);
             _sync = new Sync();
@@ -19,7 +19,7 @@ namespace UpcomingMoviesBackend.Data
         public async Task<PagedResult<Movie>> GetUpcomingAsync(int? id = null, int page = 1, string search = null, CancellationToken cancellationToken = default)
         {
             var result = await _localDataSource.GetUpcomingAsync(id, page, search, cancellationToken);
-            _sync.Execute();
+            _ = _sync.Execute();
             return result;
         }
     }

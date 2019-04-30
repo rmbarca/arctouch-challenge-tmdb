@@ -8,9 +8,9 @@ namespace UpcomingMoviesBackend.Data.Local
 {
     public class MovieLocalDataSource : IMovieDataSource
     {
-        private MovieDatabaseContext _context;
+        private IMovieContext _context;
 
-        public MovieLocalDataSource(MovieDatabaseContext context)
+        public MovieLocalDataSource(IMovieContext context)
         {
             _context = context;
         }

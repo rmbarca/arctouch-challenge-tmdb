@@ -3,7 +3,7 @@ using UpcomingMoviesBackend.Data.Model;
 
 namespace UpcomingMoviesBackend.Data.Local
 {
-    public class MovieDatabaseContext: DbContext
+    public class MovieDatabaseContext: DbContext, IMovieContext
     {
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Movie> Movies { get; set; }

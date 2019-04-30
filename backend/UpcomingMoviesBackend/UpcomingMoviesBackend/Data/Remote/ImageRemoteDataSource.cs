@@ -5,11 +5,8 @@ using UpcomingMoviesBackend.Data.Model;
 
 namespace UpcomingMoviesBackend.Data.Remote
 {
-    public class ImageRemoteDataSource
+    public class ImageRemoteDataSource: IImageDataSource
     {
-        /// <summary>
-        /// Gets availables images from specific movie in remote data source
-        /// </summary>
         public async Task<ImageResponse> GetAsync(int movieId, CancellationToken cancellationToken = default(CancellationToken))
         {
             var client = new Client<ImageResponse>();
@@ -17,9 +14,6 @@ namespace UpcomingMoviesBackend.Data.Remote
             return await request.GetAsync(cancellationToken);
         }
 
-        /// <summary>
-        /// Gets image from remote data source
-        /// </summary>
         public async Task<Stream> GetImageAsync(string imagePath, CancellationToken cancellationToken = default(CancellationToken))
         {
             var client = new Client<Stream>();

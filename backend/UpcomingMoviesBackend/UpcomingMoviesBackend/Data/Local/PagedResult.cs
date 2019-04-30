@@ -27,6 +27,14 @@ namespace UpcomingMoviesBackend.Data.Local
         {
             get { return Math.Min(Page * PageSize, TotalResults); }
         }
+
+        /// <summary>
+        /// Checks if has next page
+        /// </summary>
+        public bool HasNext()
+        {
+            return Page < TotalPages;
+        }
     }
 
     public class PagedResult<T> : PagedResultBase where T : class

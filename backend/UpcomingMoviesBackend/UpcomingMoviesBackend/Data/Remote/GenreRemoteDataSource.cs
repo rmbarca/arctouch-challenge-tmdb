@@ -4,11 +4,8 @@ using UpcomingMoviesBackend.Data.Model;
 
 namespace UpcomingMoviesBackend.Data.Remote
 {
-    public class GenreRemoteDataSource
+    public class GenreRemoteDataSource: IGenreDataSource
     {
-        /// <summary>
-        /// Gets genres from remote data source
-        /// </summary>
         public async Task<GenreResponse> GetAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             var client = new Client<GenreResponse>();

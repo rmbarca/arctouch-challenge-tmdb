@@ -1,7 +1,7 @@
 <template>
   <div :key="movie.id">
-    <router-link :to="{ name: 'details', params: { id: movie.id }}">
-      <div class="container">
+    <div class="container">
+      <router-link :to="{ name: 'details', params: { id: movie.id }}">
         <img :src="'https://localhost:44388'+movie.posterPath">
         <div class="text-block"> 
           <h4>{{ movie.title }}</h4>
@@ -10,8 +10,8 @@
             <small v-if="index != 0">, </small><genre-item :key="genre.id" :genre="genre"/>
           </small>
         </div>
-      </div>
-    </router-link>
+      </router-link>
+    </div>
   </div>
 </template>
 
