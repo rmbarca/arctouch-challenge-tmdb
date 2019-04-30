@@ -37,6 +37,7 @@ NPM commands used to set the project up:
 	
 To get started with testing, open command prompts and execute the following instructions:
 	> npm run dev
+Then, open browser on http://localhost:8080
 
 It was also used Milligram CSS library by adding these three lines inside public index.html <head> tag:
 	<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
